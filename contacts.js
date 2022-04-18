@@ -29,7 +29,8 @@ async function removeContact(contactId) {
     .catch(console.warn);
   fs.writeFile(
     contactsPath,
-    JSON.stringify(contacts.filter((contact) => contact.id !== contactId)))
+    JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
+  )
     .then(() => console.log("Removed!"))
     .catch(console.warn);
 }
@@ -44,7 +45,8 @@ async function addContact(name, email, phone) {
     JSON.stringify([
       ...contacts,
       { id: `${await newId()}`, name, email, phone },
-    ]))
+    ])
+  )
     .then(() => console.log("Added!"))
     .catch(console.warn);
 }
