@@ -16,8 +16,7 @@ function getContactById(contactId) {
   const contact = fs
     .readFile(contactsPath, "utf-8")
     .then((data) =>
-      JSON.parse(data).filter((contact) => contact.id === contactId)
-    )
+      JSON.parse(data).filter((contact) => contact.id === contactId))
     .then(console.table)
     .catch(console.warn);
   return contact;
@@ -30,8 +29,7 @@ async function removeContact(contactId) {
     .catch(console.warn);
   fs.writeFile(
     contactsPath,
-    JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
-  )
+    JSON.stringify(contacts.filter((contact) => contact.id !== contactId)))
     .then(() => console.log("Removed!"))
     .catch(console.warn);
 }
@@ -41,14 +39,12 @@ async function addContact(name, email, phone) {
     .readFile(contactsPath, "utf-8")
     .then((data) => JSON.parse(data))
     .catch(console.warn);
-
   fs.writeFile(
     contactsPath,
     JSON.stringify([
       ...contacts,
       { id: `${await newId()}`, name, email, phone },
-    ])
-  )
+    ]))
     .then(() => console.log("Added!"))
     .catch(console.warn);
 }
