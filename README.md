@@ -8,7 +8,7 @@ node index.js --action list
 node index.js --action get --id 5
 
 ![alt text](images/get-by-id.jpg "Контакт по id")
-## Добавялем контакт
+## Добавляем контакт
 node index.js --action add --name Mango --email mango@gmail.com --phone 322-22-22
 
 ![alt text](images/add.jpg "Додаємо контакт")
