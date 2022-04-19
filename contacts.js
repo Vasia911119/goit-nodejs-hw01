@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs").promises;
+const { nanoid } = require("nanoid");
 
 const contactsPath = path.resolve("db", "contacts.json");
 
@@ -16,17 +17,15 @@ function getContactById(contactId) {
   const contact = fs
     .readFile(contactsPath, "utf-8")
     .then((data) =>
-      JSON.parse(data).filter((contact) => contact.id === contactId))
+      JSON.parse(data).filter((contact) => contact.id === contactId)
+    )
     .then(console.table)
     .catch(console.warn);
   return contact;
 }
 
 async function removeContact(contactId) {
-  const contacts = await fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
+  const contacts = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
   fs.writeFile(
     contactsPath,
     JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
@@ -36,28 +35,13 @@ async function removeContact(contactId) {
 }
 
 async function addContact(name, email, phone) {
-  const contacts = await fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
+  const contacts = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
   fs.writeFile(
     contactsPath,
-    JSON.stringify([
-      ...contacts,
-      { id: `${await newId()}`, name, email, phone },
-    ])
+    JSON.stringify([...contacts, { id: nanoid(), name, email, phone }])
   )
     .then(() => console.log("Added!"))
     .catch(console.warn);
-}
-
-async function newId() {
-  const contacts = await fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
-  const idList = contacts.map((contact) => contact.id);
-  return Math.max.apply(null, idList) + 1;
 }
 
 module.exports = {
