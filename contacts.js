@@ -28,6 +28,7 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
   try {
+    // const contacts = await listContacts();
     const contacts = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
     await fs.writeFile(
       contactsPath,
@@ -41,6 +42,7 @@ async function removeContact(contactId) {
 
 async function addContact(name, email, phone) {
   try {
+    // const contacts = await listContacts();
     const contacts = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
     await fs.writeFile(
       contactsPath,
