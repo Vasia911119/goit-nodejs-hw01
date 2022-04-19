@@ -28,7 +28,7 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
   try {
-    // const contacts = await listContacts(); - При такому написанні буде лишня таблиця в консолі через цю строку - console.table(contacts), можна переписати index.js винісши туди console.table(contacts) і це обійти, але мені так подобається більще, тому строка нижче;
+    // const contacts = await listContacts(); - При такому написанні буде лишня таблиця в консолі через цю строку - console.table(contacts), можна переписати index.js та винесши туди в case - console.table(await listContacts()) і це обійти, але мені так подобається більще, тому строка нижче;
     const contacts = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
     await fs.writeFile(
       contactsPath,
